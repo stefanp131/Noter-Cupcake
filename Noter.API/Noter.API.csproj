@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\Noter.DAL\Noter.DAL.csproj" />
   </ItemGroup>
 
 </Project>
