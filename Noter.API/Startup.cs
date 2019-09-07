@@ -40,7 +40,6 @@ namespace Noter.API
                         ValidateAudience = false
                     };
                 });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +49,8 @@ namespace Noter.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
             app.UseAuthentication();
             app.UseMvc();
