@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Register } from 'src/models/Register';
 import { Login } from 'src/models/Login';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +22,14 @@ export class AuthService {
   }
 
   logout() {
+    localStorage.removeItem('userInfo');
     localStorage.removeItem('token');
   }
 
   loggedIn() {
+    const helper = new JwtHelperService();
     const token = localStorage.getItem('token');
-    return !!token;
+
+    return !helper.isTokenExpired(token);
   }
 }

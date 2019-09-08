@@ -29,6 +29,7 @@ namespace Noter.API
             services.AddDbContext<NoterContext>(o => o.UseSqlServer(connectionString));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<ITopicsRepository, TopicsRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters

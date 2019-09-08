@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 namespace Noter.API.Controllers
 {
     [Route("api/auth")]
-    public class AuthController: Controller
+    [ApiController]
+    public class AuthController: ControllerBase
     {
         private readonly IAuthRepository repository;
         private readonly IConfiguration configuration;
@@ -25,13 +26,8 @@ namespace Noter.API.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] UserForRegistration userForRegistration)
+        public async Task<IActionResult> Register(UserForRegistration userForRegistration)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             userForRegistration.Username = userForRegistration.Username.ToLower();
 
             if (await repository.UserExists(userForRegistration.Username))
@@ -50,7 +46,7 @@ namespace Noter.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody]UserForLogin userForLogin)
+        public async Task<IActionResult> Login(UserForLogin userForLogin)
         {
             var userFromRepo = await repository.Login(userForLogin.Username, userForLogin.Password);
 

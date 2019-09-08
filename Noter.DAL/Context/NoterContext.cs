@@ -7,9 +7,10 @@ namespace Noter.DAL.Context
     {
         public NoterContext(DbContextOptions<NoterContext> options): base(options)
         {
-            Database.Migrate();
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Topic> Topics { get; set; }
+        public DbSet<Note> Notes { get; set; }
     }
 }

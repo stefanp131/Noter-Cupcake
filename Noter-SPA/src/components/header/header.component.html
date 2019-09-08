@@ -19,7 +19,7 @@
           </a>
       </li>
       <li class="nav-item" *ngIf="loggedIn()">
-        <a class="nav-link" href="#">Shared Space</a>
+        <a class="nav-link" (click)="navigateTo('/shared-space')">Shared Space</a>
       </li>
     </ul>
     <form class="form-inline mx-auto my-2 my-lg-0" *ngIf="loggedIn()">
