@@ -10,11 +10,12 @@ import { RegisterComponent } from 'src/components/register/register.component';
 import { FooterComponent } from 'src/components/footer/footer.component';
 import { LoginComponent } from 'src/components/login/login.component';
 import { HomeComponent } from 'src/components/home/home.component';
+import { AuthGuardService } from 'src/services/authGuard.service';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent }
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] }
 
 ];
 
