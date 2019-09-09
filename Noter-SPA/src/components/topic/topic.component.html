@@ -4,7 +4,7 @@
     <h6 class="card-subtitle mb-2 text-muted">{{topic.createdBy}}</h6>
     <p class="card-text">{{topic.description}}</p>    
   </div>
-  <button class="btn btn-danger" (click)="delete()">
+  <button class="btn btn-danger" *ngIf="topic.createdById === currentId" (click)="delete()">
     delete
   </button>
 </div>

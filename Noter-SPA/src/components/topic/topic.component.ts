@@ -11,12 +11,19 @@ export class TopicComponent implements OnInit {
 
   @Input() topic: TopicForRetrieval;
   @Output() topicDeleted: EventEmitter<any> = new EventEmitter<any>();
-  constructor(private topicsService: TopicsService) { }
+  currentId: string;
+
+  constructor(private topicsService: TopicsService) {
+    // tslint:disable-next-line: no-string-literal
+    this.currentId = JSON.parse(localStorage.getItem('userInfo'))['userId'];
+  }
 
   ngOnInit() {
   }
 
   delete() {
-    this.topicsService.deleteTopic(this.topic.id).subscribe(() => this.topicDeleted.emit());
+    if (this.topic.createdById === this.currentId) {
+      this.topicsService.deleteTopic(this.topic.id).subscribe(() => this.topicDeleted.emit());
+    }
   }
 }

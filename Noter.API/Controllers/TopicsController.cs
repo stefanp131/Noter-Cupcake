@@ -28,7 +28,8 @@ namespace Noter.API.Controllers
                 Id = entity.Id,
                 Title = entity.Title,
                 Description = entity.Description,
-                CreatedBy = entity.CreatedBy.Username
+                CreatedBy = entity.CreatedBy.Username,
+                CreatedById = entity.CreatedById
             };
 
             return Ok(dto);
@@ -47,7 +48,8 @@ namespace Noter.API.Controllers
                     Id = entity.Id,
                     Title = entity.Title,
                     Description = entity.Description,
-                    CreatedBy = entity.CreatedBy.Username
+                    CreatedBy = entity.CreatedBy.Username,
+                    CreatedById = entity.CreatedById
                 };
 
                 dtos.Add(dto);

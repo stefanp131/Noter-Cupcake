@@ -3,4 +3,5 @@ export interface TopicForRetrieval {
     title: string;
     description: string;
     createdBy: string;
+    createdById: string;
 }
