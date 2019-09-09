@@ -13,5 +13,8 @@ namespace Noter.DAL.Entities
         public Guid? CreatedById { get; set; }
         [ForeignKey("CreatedById")]
         public User CreatedBy { get; set; }
+        public Guid? TopicId { get; set; }
+        [ForeignKey("TopicId")]
+        public Topic Topic { get; set; }
     }
 }

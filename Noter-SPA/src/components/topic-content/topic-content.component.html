@@ -1,0 +1,6 @@
+<app-create-note (noteCreated)="refresh()"></app-create-note>
+<div *ngFor="let item of notes; let i = index">
+    <div class="row my-3">
+        <app-note [note]="item" class="col-sm-12" (noteDeleted)="refresh()"></app-note>
+    </div>
+</div>

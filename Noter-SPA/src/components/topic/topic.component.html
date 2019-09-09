@@ -4,7 +4,10 @@
     <h6 class="card-subtitle mb-2 text-muted">{{topic.createdBy}}</h6>
     <p class="card-text">{{topic.description}}</p>    
   </div>
-  <button class="btn btn-danger" *ngIf="topic.createdById === currentId" (click)="delete()">
-    delete
+  <button class="btn btn-info btn-width mx-auto my-1" [routerLink]="[topic.id]">
+      <i class="fa fa-arrow-right" aria-hidden="true"></i>
+  </button>
+  <button class="btn btn-danger btn-width mx-auto my-1" *ngIf="topic.createdById === currentId" (click)="delete()">
+     <i class="fa fa-trash-o"></i>
   </button>
 </div>

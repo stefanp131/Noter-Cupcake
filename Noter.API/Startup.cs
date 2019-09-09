@@ -30,6 +30,8 @@ namespace Noter.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ITopicsRepository, TopicsRepository>();
+            services.AddScoped<INotesRepository, NotesRepository>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters

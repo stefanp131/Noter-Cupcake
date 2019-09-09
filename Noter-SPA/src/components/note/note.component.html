@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{note.title}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{note.createdBy}}</h6>
+    <p class="card-text">{{note.description}}</p>    
+  </div>
+
+  <button class="btn btn-danger btn-width mx-3 my-3" *ngIf="note.createdById === currentId" (click)="delete()">
+     <i class="fa fa-trash-o"></i>
+  </button>
+</div>

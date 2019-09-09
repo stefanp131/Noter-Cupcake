@@ -14,12 +14,16 @@ import { AuthGuardService } from 'src/services/authGuard.service';
 import { SharedSpaceComponent } from 'src/components/shared-space/shared-space.component';
 import { TopicComponent } from 'src/components/topic/topic.component';
 import { CreateTopicComponent } from 'src/components/create-topic/create-topic.component';
+import { TopicContentComponent } from 'src/components/topic-content/topic-content.component';
+import { CreateNoteComponent } from 'src/components/create-note/create-note.component';
+import { NoteComponent } from 'src/components/note/note.component';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
-  { path: 'shared-space', component: SharedSpaceComponent, canActivate: [AuthGuardService] }
+  { path: 'shared-space', component: SharedSpaceComponent, canActivate: [AuthGuardService] },
+  { path: 'shared-space/:id', component: TopicContentComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({
@@ -32,7 +36,10 @@ const appRoutes: Routes = [
     HomeComponent,
     SharedSpaceComponent,
     TopicComponent,
-    CreateTopicComponent
+    CreateTopicComponent,
+    TopicContentComponent,
+    CreateNoteComponent,
+    NoteComponent
   ],
   imports: [
     BrowserModule,
