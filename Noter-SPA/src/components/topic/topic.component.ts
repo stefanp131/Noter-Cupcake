@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { TopicForRetrieval } from 'src/models/TopicForRetrieval';
 
 @Component({
   selector: 'app-topic',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopicComponent implements OnInit {
 
+  @Input() topic: TopicForRetrieval;
   constructor() { }
 
   ngOnInit() {
   }
-
 }

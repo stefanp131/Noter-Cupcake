@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { TopicsService } from 'src/services/topics.service';
 import { TopicForCreation } from 'src/models/TopicForCreation';
 
@@ -11,6 +11,8 @@ export class CreateTopicComponent implements OnInit {
   error: string;
   title: string;
   description: string;
+
+  @Output() topicCreated: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private topicsService: TopicsService) {}
 
@@ -26,6 +28,6 @@ export class CreateTopicComponent implements OnInit {
       createdById: userInfo['userId']
     };
 
-    this.topicsService.createTopic(topic).subscribe();
+    this.topicsService.createTopic(topic).subscribe(() => this.topicCreated.emit());
   }
 }

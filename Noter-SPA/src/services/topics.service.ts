@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TopicForCreation } from 'src/models/TopicForCreation';
+import { Observable } from 'rxjs';
+import { TopicForRetrieval } from 'src/models/TopicForRetrieval';
 
 @Injectable({
   providedIn: 'root'
@@ -12,5 +14,9 @@ export class TopicsService {
 
   createTopic(model: TopicForCreation) {
     return this.http.post(this.baseUrl, model);
+  }
+
+  getAll(): Observable<TopicForRetrieval[]> {
+    return this.http.get<TopicForRetrieval[]>(this.baseUrl);
   }
 }

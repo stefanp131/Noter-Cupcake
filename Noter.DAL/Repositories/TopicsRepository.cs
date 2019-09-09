@@ -35,7 +35,7 @@ namespace Noter.DAL.Repositories
 
         public async Task<List<Topic>>  GetAll()
         {
-            var list = await context.Topics.ToListAsync();
+            var list = await context.Topics.Include(e => e.CreatedBy).ToListAsync();
             return list;
         }
 
