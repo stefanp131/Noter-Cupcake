@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -17,13 +17,17 @@ import { CreateTopicComponent } from 'src/components/create-topic/create-topic.c
 import { TopicContentComponent } from 'src/components/topic-content/topic-content.component';
 import { CreateNoteComponent } from 'src/components/create-note/create-note.component';
 import { NoteComponent } from 'src/components/note/note.component';
+import { JwtInterceptorService } from 'src/services/jwtInterceptor.service';
+import { PageNotFoundComponent } from 'src/components/page-not-found/page-not-found.component';
 
 const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
   { path: 'shared-space', component: SharedSpaceComponent, canActivate: [AuthGuardService] },
-  { path: 'shared-space/:id', component: TopicContentComponent, canActivate: [AuthGuardService] }
+  { path: 'shared-space/:id', component: TopicContentComponent, canActivate: [AuthGuardService] },
+  { path: '', redirectTo: '/home' , pathMatch: 'full'},
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -39,7 +43,8 @@ const appRoutes: Routes = [
     CreateTopicComponent,
     TopicContentComponent,
     CreateNoteComponent,
-    NoteComponent
+    NoteComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,11 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
