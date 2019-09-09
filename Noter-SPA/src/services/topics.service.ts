@@ -19,4 +19,8 @@ export class TopicsService {
   getAll(): Observable<TopicForRetrieval[]> {
     return this.http.get<TopicForRetrieval[]>(this.baseUrl);
   }
+
+  deleteTopic(id: string) {
+    return this.http.delete(this.baseUrl + '/' + id);
+  }
 }

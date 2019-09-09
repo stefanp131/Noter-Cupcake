@@ -1,9 +1,9 @@
 <app-create-topic (topicCreated)="refreshList()"></app-create-topic>
 <div *ngFor="let item of topics; let i = index">
     <div *ngIf="i % 4 == 0" class="row my-3">
-    <app-topic [topic]="topics[i]" class="col-sm-3"></app-topic>
-    <app-topic *ngIf="i + 1 < topics.length" class="col-sm-3" [topic]="topics[i + 1]"></app-topic>
-    <app-topic *ngIf="i + 2 < topics.length" class="col-sm-3" [topic]="topics[i + 2]"></app-topic>
-    <app-topic *ngIf="i + 3 < topics.length" class="col-sm-3" [topic]="topics[i + 3]"></app-topic>
+    <app-topic (topicDeleted)="refreshList()" [topic]="topics[i]" class="col-sm-3"></app-topic>
+    <app-topic (topicDeleted)="refreshList()" *ngIf="i + 1 < topics.length" class="col-sm-3" [topic]="topics[i + 1]"></app-topic>
+    <app-topic (topicDeleted)="refreshList()" *ngIf="i + 2 < topics.length" class="col-sm-3" [topic]="topics[i + 2]"></app-topic>
+    <app-topic (topicDeleted)="refreshList()" *ngIf="i + 3 < topics.length" class="col-sm-3" [topic]="topics[i + 3]"></app-topic>
     </div>
   </div>
