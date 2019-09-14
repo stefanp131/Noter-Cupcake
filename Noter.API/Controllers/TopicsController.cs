@@ -38,9 +38,14 @@ namespace Noter.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryForTopic query)
         {
-            var entities = await repository.GetAll();
+             var entities = await repository.GetAll(new DAL.Models.QueryForTopic
+            {
+                CurrentPage = query.CurrentPage,
+                PageSize = query.PageSize,
+                SearchItemQuery = query.SearchItemQuery
+            });
             var dtos = new List<TopicForRetrieval>();
 
             foreach (var entity in entities)

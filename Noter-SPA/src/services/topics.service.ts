@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { TopicForCreation } from 'src/models/TopicForCreation';
 import { Observable } from 'rxjs';
 import { TopicForRetrieval } from 'src/models/TopicForRetrieval';
@@ -16,8 +16,20 @@ export class TopicsService {
     return this.http.post(this.baseUrl, model);
   }
 
-  getAll(): Observable<TopicForRetrieval[]> {
-    return this.http.get<TopicForRetrieval[]>(this.baseUrl);
+  getAll(currentPage?: number, pageSize?: number, searchItemQuery?: string ): Observable<TopicForRetrieval[]> {
+
+    let params = new HttpParams();
+    if (currentPage) {
+      params = params.set('currentPage', currentPage.toString());
+    }
+    if (pageSize) {
+      params = params.set('pageSize', pageSize.toString());
+    }
+    if (searchItemQuery) {
+      params = params.set('searchItemQuery', searchItemQuery);
+    }
+    console.log(params.toString());
+    return this.http.get<TopicForRetrieval[]>(this.baseUrl, {params} );
   }
 
   deleteTopic(id: string) {

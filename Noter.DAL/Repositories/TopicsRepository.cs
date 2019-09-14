@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Noter.DAL.Context;
 using Noter.DAL.Entities;
+using Noter.DAL.Models;
 
 namespace Noter.DAL.Repositories
 {
@@ -33,9 +35,14 @@ namespace Noter.DAL.Repositories
             return entity;
         }
 
-        public async Task<List<Topic>>  GetAll()
+        public async Task<List<Topic>> GetAll(QueryForTopic query)
         {
-            var list = await context.Topics.Include(e => e.CreatedBy).ToListAsync();
+            var list = await context.Topics
+                .Include(e => e.CreatedBy)
+                .Where(e => e.Title.Contains(query.SearchItemQuery) || e.Description.Contains(query.SearchItemQuery))
+                .Skip((query.CurrentPage-1) * query.PageSize)
+                .Take(query.PageSize)
+                .ToListAsync();
             return list;
         }
 
