@@ -38,15 +38,19 @@ namespace Noter.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAll([FromQuery] QueryForTopic query)
+        public IActionResult GetAll([FromQuery] QueryForTopic query)
         {
-             var entities = await repository.GetAll(new DAL.Models.QueryForTopic
+            int totalPages;
+
+            var entities = repository.GetAll(new DAL.Models.QueryForTopic
             {
                 CurrentPage = query.CurrentPage,
                 PageSize = query.PageSize,
                 SearchItemQuery = query.SearchItemQuery
-            });
-            var dtos = new List<TopicForRetrieval>();
+            }, out totalPages);
+
+            var dtos = new PagedTopics();
+            dtos.TotalPages = totalPages;
 
             foreach (var entity in entities)
             {
@@ -59,7 +63,7 @@ namespace Noter.API.Controllers
                     CreatedById = entity.CreatedById
                 };
 
-                dtos.Add(dto);
+                dtos.TopicsForRetrieval.Add(dto);
             }
 
             return Ok(dtos);

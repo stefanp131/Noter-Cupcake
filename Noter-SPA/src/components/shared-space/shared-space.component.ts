@@ -10,16 +10,22 @@ import { TopicsService } from 'src/services/topics.service';
 export class SharedSpaceComponent implements OnInit {
   currentPage = 1;
   pageSize = 12;
-  topics: TopicForRetrieval[];
+  topics: TopicForRetrieval[] = [];
   searchItemQuery = '';
   disabled = false;
+  totalPages = 1;
 
   constructor(private topicsService: TopicsService) {}
 
   ngOnInit() {
     this.topicsService
       .getAll(this.currentPage, this.pageSize, this.searchItemQuery)
-      .subscribe(response => (this.topics = response));
+      .subscribe(response => {
+        // tslint:disable-next-line: no-string-literal
+        this.topics = response['topicsForRetrieval'];
+        // tslint:disable-next-line: no-string-literal
+        this.totalPages = response['totalPages'];
+      });
   }
 
   previous() {
@@ -30,17 +36,23 @@ export class SharedSpaceComponent implements OnInit {
   }
 
   next() {
-    if (this.topics.length === this.pageSize) {
+    if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.refreshList();
     }
   }
 
   refreshList() {
+
     this.topicsService
       .getAll(this.currentPage, this.pageSize, this.searchItemQuery)
       .subscribe(response => {
-        this.topics = response;
+        // tslint:disable-next-line: no-string-literal
+        this.topics = response['topicsForRetrieval'];
+        // tslint:disable-next-line: no-string-literal
+        this.totalPages = response['totalPages'];
+        console.log((this.totalPages));
+
         this.disabled = false;
       });
   }

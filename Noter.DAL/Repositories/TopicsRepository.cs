@@ -35,14 +35,18 @@ namespace Noter.DAL.Repositories
             return entity;
         }
 
-        public async Task<List<Topic>> GetAll(QueryForTopic query)
+        public List<Topic> GetAll(QueryForTopic filter, out int totalPages)
         {
-            var list = await context.Topics
+            var query = context.Topics
                 .Include(e => e.CreatedBy)
-                .Where(e => e.Title.Contains(query.SearchItemQuery) || e.Description.Contains(query.SearchItemQuery))
-                .Skip((query.CurrentPage-1) * query.PageSize)
-                .Take(query.PageSize)
-                .ToListAsync();
+                .Where(e => e.Title.Contains(filter.SearchItemQuery) || e.Description.Contains(filter.SearchItemQuery));
+
+            totalPages = (int)(Math.Ceiling((double)query.Count() / filter.PageSize));
+
+            var list = query
+                .Skip((filter.CurrentPage-1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .ToList();
             return list;
         }
 

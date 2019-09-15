@@ -10,7 +10,7 @@ namespace Noter.DAL.Repositories
     {
         Task Create(Topic entity);
         Task<Topic> Get(Guid id);
-        Task<List<Topic>> GetAll(QueryForTopic query);
+        List<Topic> GetAll(QueryForTopic query, out int totalPages);
         Task Delete(Guid id);
         Task Save();
     }

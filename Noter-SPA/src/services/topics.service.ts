@@ -28,7 +28,7 @@ export class TopicsService {
     if (searchItemQuery) {
       params = params.set('searchItemQuery', searchItemQuery);
     }
-    console.log(params.toString());
+
     return this.http.get<TopicForRetrieval[]>(this.baseUrl, {params} );
   }
 

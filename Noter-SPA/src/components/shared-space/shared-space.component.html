@@ -1,56 +1,73 @@
-<br>
-<ul class="nav justify-content-center">
-  <li class="nav-item">
-    <input
-      type="number"
-      class="form-control"
-      [(ngModel)]="pageSize"
-      name="pageSize"
-      (focus)="disabled = true"
-    />
-  </li>
-
-  <li class="nav-item">
-    <button
-      class="btn btn-primary"
-      (click)="refreshList()"      
-    >
-      Refresh
-    </button>
-  </li>
-
-  <li class="nav-item">
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="searchItemQuery"
-      name="searchItemQuery"
-      (focus)="disabled = true"
-    />
-  </li>
-
-  <li class="nav-item">
-    <button
-      class="btn btn-primary"
-      (click)="previous()"
-      [disabled]="currentPage === 1 || disabled"
-    >
-      Previous
-    </button>
-  </li>
-
-  <li class="nav-item">
-    <button
-      class="btn btn-primary"
-      (click)="next()"
-      [disabled]="topics.length !== pageSize || disabled"
-    >
-      Next
-    </button>
-  </li>
-</ul>
-
 <app-create-topic (topicCreated)="refreshList()"></app-create-topic>
+
+<br />
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand">Page {{ currentPage }} of {{ totalPages }}</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent2"
+    aria-controls="navbarSupportedContent2"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent2">
+    
+    <div class="mr-auto">
+        <button class="btn btn-primary" (click)="refreshList()">
+            Refresh
+          </button>
+    </div>
+
+        <div class="mx-auto">
+        <select
+          [(ngModel)]="pageSize"
+          class="form-control"
+          (focus)="disabled = true"
+          name="pageSize"
+        >
+          <option [value]="4">4</option>
+          <option [value]="8">8</option>
+          <option [value]="12">12</option>
+          <option [value]="16">16</option>
+          <option [value]="24">24</option>
+          <option [value]="32">32</option>
+        </select>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="searchItemQuery"
+          name="searchItemQuery"
+          placeholder="Search"
+          (focus)="disabled = true"
+        />
+      </div>
+
+
+    <div class="ml-auto">
+        <button
+          class="btn btn-primary mr-1"
+          (click)="previous()"
+          [disabled]="currentPage === 1 || disabled"
+        >
+          Previous
+        </button>
+
+      
+        <button
+          class="btn btn-primary"
+          (click)="next()"
+          [disabled]="currentPage === totalPages || disabled"
+        >
+          Next
+        </button>
+      </div>
+  </div>
+</nav>
 
 <div *ngIf="topics.length === 0">
   <div class="card">
